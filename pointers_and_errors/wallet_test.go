@@ -7,31 +7,31 @@ import (
 func TestWallet(t *testing.T) {
 	t.Run("Init wallet", func(t *testing.T) {
 		var wallet Wallet
-		assertBalance(t, wallet, Wallet(0))
+		assertBalance(t, wallet, Bitcoin(0))
 	})
 	t.Run("Deposit 10&10", func(t *testing.T) {
 		var wallet Wallet
-		wallet.Deposit(10)
-		wallet.Deposit(10)
-		assertBalance(t, wallet, Wallet(20))
+		wallet.Deposit(Bitcoin(10))
+		wallet.Deposit(Bitcoin(10))
+		assertBalance(t, wallet, Bitcoin(20))
 	})
 	t.Run("Withdraw 10", func(t *testing.T) {
 		var wallet Wallet
-		wallet.Deposit(20)
-		err := wallet.Withdraw(10)
+		wallet.Deposit(Bitcoin(20))
+		err := wallet.Withdraw(Bitcoin(10))
 		assertNoError(t, err)
-		assertBalance(t, wallet, Wallet(10))
+		assertBalance(t, wallet, Bitcoin(10))
 	})
 	t.Run("Withdraw Insufficient Funds", func(t *testing.T) {
-		startingBalance := 20
-		wallet := Wallet(startingBalance)
-		err := wallet.Withdraw(30)
+		startingBalance := Bitcoin(20)
+		wallet := Wallet{balance: startingBalance}
+		err := wallet.Withdraw(Bitcoin(30))
 		assertError(t, err, ErrInsufficientFunds)
-		assertBalance(t, wallet, Wallet(startingBalance))
+		assertBalance(t, wallet, startingBalance)
 	})
 }
 
-func assertBalance(t testing.TB, wallet Wallet, want Wallet) {
+func assertBalance(t testing.TB, wallet Wallet, want Bitcoin) {
 	t.Helper()
 	got := wallet.Balance()
 
