@@ -16,6 +16,17 @@ func TestSync(t *testing.T) {
 		assertCounter(t, counter, 3)
 	})
 
+	t.Run("1k incs without goroutine", func(t *testing.T) {
+
+		wantedCount := 1000
+		counter := NewCounter()
+
+		for i := 0; i < wantedCount; i++ {
+			counter.Inc()
+		}
+		assertCounter(t, counter, wantedCount)
+	})
+
 	t.Run("It runs safe concurrently", func(t *testing.T) {
 		wantedCount := 1000
 		counter := NewCounter()
