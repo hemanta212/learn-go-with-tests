@@ -10,6 +10,8 @@ Go Offical Docs: Tour of Go: https://go.dev/tour/
 
 Go By Example : https://gobyexample.com/
 
+Effective Go: https://go.dev/doc/effective_go
+
 The Blue Book: Go Programming Language : https://www.gopl.io/
 
 ## Other Resources
